@@ -1,0 +1,60 @@
+
+<configuration>
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <appender name="SERVICE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/service.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.crm.CRM.service.impl" level="INFO" additivity="false">
+        <appender-ref ref="SERVICE_FILE"/>
+    </logger>
+
+    <appender name="DAO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/dao.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/dao.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.crm.CRM.dao" level="INFO" additivity="false">
+        <appender-ref ref="DAO_FILE"/>
+    </logger>
+
+    <appender name="CONTROLLER_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/controller.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/controller.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.crm.CRM.service.controller" level="INFO" additivity="false">
+        <appender-ref ref="CONTROLLER_FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONTROLLER_FILE"/>
+        <appender-ref ref="SERVICE_FILE"/>
+        <appender-ref ref="DAO_FILE"/>
+    </root>
+
+</configuration>
